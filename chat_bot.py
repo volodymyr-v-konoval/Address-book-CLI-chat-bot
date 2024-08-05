@@ -3,7 +3,7 @@ import pickle
 
 from classes import AddressBook, Record
 from decorators import input_error
-
+from save import save_data, load_data
 
 
 def parse_input(income: str) -> tuple:
@@ -89,17 +89,14 @@ def birthdays(book: AddressBook) -> list:
 
 def main() -> None:
     """I rule the show!"""
-    book = AddressBook()
-    add_birthday(['a', '03.10.1985'], book)
-    add_birthday(['Tom', '30.07.2000'], book)
-    add_birthday(['John', '28.07.2021'], book)
-    add_birthday(['Connie', '31.07.1999'], book)
+    book = load_data()
     print('Welcome to the assistant bot!')
     while True:
         user_input = input('Enter a command: ')
         command, args = parse_input(user_input)
 
         if command in ['close', 'exit']:
+            save_data(book)
             print('Good bye!')
             break
 
